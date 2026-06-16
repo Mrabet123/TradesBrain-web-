@@ -49,18 +49,27 @@ export const EARLY_ADOPTER = {
  * Pricing — three plans, Pro anchored as the natural choice
  * (Spec Page 3 + Messaging Bank §10).
  *
- * ⚠️ The dollar amounts below are PLACEHOLDERS — no validated prices
- *    were provided in the deliverables. Confirm the real figures AND
- *    the iOS IAP decision (iOS Build Guide Step 0) so web/Android
- *    (Stripe) and iOS tell one consistent story before this page ships.
+ * Figures are the real Stripe prices from the app spec
+ * (Instructions/TradesBrain_D9_StripeIntegration_v1.md §1.2):
+ *   Solo  — $69/mo · $662.40/yr  (= $55.20/mo)
+ *   Pro   — $120/mo · $1,152/yr  (= $96/mo)
+ *   Team  — $260/mo · $2,496/yr  (= $208/mo) for a base of 3 seats,
+ *           plus $89/mo ($854.40/yr) per additional seat.
+ * The monthly-equivalent on annual is a display-only calculation — the
+ * actual annual charge is the full yearly amount billed once.
+ *
+ * `monthly` / `annualMonthly` / `annualTotal` are display strings so the
+ * cents ($55.20) render exactly. The trial (10 free questions) is managed
+ * in-app, never via Stripe.
  */
 export const PLANS = [
   {
     id: "solo",
     name: "Solo",
     forWho: "The solo pro who owns the job and the name on it.",
-    monthly: 29, // TODO: confirm real price.
-    annualMonthly: 24, // TODO: confirm — annual billed yearly, framed as value gained.
+    monthly: "69",
+    annualMonthly: "55.20",
+    annualTotal: "662.40",
     anchored: false,
     valueLine: "Everything you need to keep moving and close on the spot.",
     features: [
@@ -75,8 +84,9 @@ export const PLANS = [
     id: "pro",
     name: "Pro",
     forWho: "The pro running flat-out who wants every edge.",
-    monthly: 49, // TODO: confirm real price.
-    annualMonthly: 39, // TODO: confirm.
+    monthly: "120",
+    annualMonthly: "96",
+    annualTotal: "1,152",
     anchored: true,
     valueLine: "The natural choice — built for the pro doing more jobs a day.",
     features: [
@@ -91,17 +101,19 @@ export const PLANS = [
     id: "team",
     name: "Team",
     forWho: "The crew owner who wants every tech certain, the first time.",
-    monthly: 39, // TODO: confirm — per seat.
-    annualMonthly: 32, // TODO: confirm.
-    perSeat: true,
+    monthly: "260",
+    annualMonthly: "208",
+    annualTotal: "2,496",
+    unit: "base 3 seats",
+    extraSeat: "$89/mo per extra seat",
     anchored: false,
     valueLine: "Every tech on the crew gets the certain answer the first time.",
     features: [
-      "Everything in Pro, per seat",
-      "Team seats with shared templates",
-      "Consistent quotes & reports company-wide",
-      "Owner oversight across the crew",
-      "Volume seats — talk to us",
+      "Everything in Pro, for the whole crew",
+      "Includes 3 seats — add more anytime at $89/mo each",
+      "Shared templates: consistent quotes & reports company-wide",
+      "Searchable job history across the crew",
+      "Owner oversight across every tech",
     ],
   },
 ] as const;
