@@ -1,0 +1,96 @@
+# Node / Astro build (website lives in ./site)
+site/node_modules/
+site/dist/
+site/.astro/
+*.log
+npm-debug.log*
+
+# Environment files
+.env
+.env.*
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python extensions
+*.so
+
+# Distribution
+.Python
+
+# Claude
+.claude/
+
+Instructions
+
+Design system asset
+
+TradesBrain_Build_Audit_M0_M4.md
+
+TradesBrain_M0M4_FixesReport_v1_1.md
+TradesBrain_ManualTestingGuide_v1.md
+
+# Supabase CLI machine-local state only — migrations and Edge Functions
+# under tradesbrain/supabase/ ARE version-controlled (audit Issue #1).
+**/.temp/
+
+PRE_LAUNCH_CHECKLIST.md
+
+test.md
+
+TradesBrain_ClaudeCode_AuditPrompt_v1.md
+
+Final_Audit_M0_M5.md
+
+
+TradesBrain_M6M7_AuditPrompt_v1.md
+
+Audit_M6M7.md
+
+
+Audit_Milestones_M0-M11.md
+
+CLAUDE.md
+TradesBrain_M6M7_FixesSheet_v1.md
+
+TradesBrain_M8M9_AuditPrompt_v1.md
+
+Audit_Report_M8M9.md
+
+TradesBrain_M8M9_LiveVerification_v1.md
+
+TradesBrain_ManualTestCases_v1.md
+
+TradesBrain_M10_AuditPrompt_v1.md
+
+Audit_M10.md
+
+TradesBrain_Rex_ArchitecturalObligations_v1.md
+TradesBrain_Rex_ClaudeCodeRebuildPrompt_v1.md
+TradesBrain_Rex_SecurityEvidenceSheet_v1.md
+TradesBrain_D7_AISystemPrompts_v2.docx
+_d7_v21.md
+
+A1.md
+
+TradesBrain_D7_AISystemPrompts_v2.md
+
+Audits Reports
+
+
+all-deliverables
+
+TradesBrain_MessagingBank_v2.md
+TradesBrain_Narrative_Neuromarketing_Playbook_v2.md
+TradesBrain_Stitch_ClaudeCode_WorkflowGuide_v1.md
+TradesBrain_Website_BuildPlaybook_v1.md
+
+TradesBrain_Website_SpecBuildPlan_v1.md

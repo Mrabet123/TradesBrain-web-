@@ -1,0 +1,98 @@
+---
+/** Sticky header: logo, launch-page nav, and a persistent Download CTA
+ *  (the primary action is never more than a tap away — Spec §2). */
+import Logo from "./Logo.astro";
+import { NAV, CTA } from "@/data/site";
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="sticky top-0 z-50 border-b border-navy/10 bg-white/90 backdrop-blur-md">
+  <nav class="container-tb flex h-16 items-center justify-between gap-4" aria-label="Primary">
+    <a href="/" class="shrink-0" aria-label="TradesBrain home">
+      <Logo size={34} />
+    </a>
+
+    <!-- desktop nav -->
+    <ul class="hidden items-center gap-7 lg:flex">
+      {
+        NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                "text-sm font-semibold transition hover:text-blue",
+                isActive(item.href) ? "text-blue" : "text-navy",
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="hidden items-center gap-3 lg:flex">
+      <a
+        href="/download"
+        class="inline-flex items-center rounded-xl bg-blue px-5 py-2.5 text-sm font-semibold text-white shadow-card transition hover:-translate-y-0.5 hover:bg-blue-600"
+      >
+        {CTA.short}
+      </a>
+    </div>
+
+    <!-- mobile toggle -->
+    <button
+      id="nav-toggle"
+      class="inline-flex items-center justify-center rounded-lg p-2 text-navy lg:hidden"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- mobile menu -->
+  <div id="mobile-menu" class="hidden border-t border-navy/10 bg-white lg:hidden">
+    <ul class="container-tb flex flex-col py-3">
+      {
+        NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                "block py-3 text-base font-semibold",
+                isActive(item.href) ? "text-blue" : "text-navy",
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="pt-2">
+        <a
+          href="/download"
+          class="inline-flex w-full items-center justify-center rounded-xl bg-blue px-5 py-3 text-base font-semibold text-white"
+        >
+          {CTA.short}
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById("nav-toggle");
+  const menu = document.getElementById("mobile-menu");
+  btn?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden");
+    btn.setAttribute("aria-expanded", open ? "false" : "true");
+  });
+</script>

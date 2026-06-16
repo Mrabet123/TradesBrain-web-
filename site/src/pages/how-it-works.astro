@@ -1,0 +1,176 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Section.astro";
+import Icon from "@/components/Icon.astro";
+import FinalCTA from "@/components/FinalCTA.astro";
+import LottiePlayer from "@/components/react/LottiePlayer.tsx";
+
+const walkthrough = [
+  {
+    icon: "stuck",
+    title: "The job stalls.",
+    body: "A plumber's mid-job and hits a question. Something isn't adding up, and the whole job stops on that one point while the clock runs.",
+  },
+  {
+    icon: "mic",
+    title: "Ask Rex, hands-free.",
+    body: "No typing, no stopping. They ask Rex the question out loud, the way they'd ask a master standing next to them.",
+  },
+  {
+    icon: "doc",
+    title: "Get the certain answer.",
+    body: "Rex returns the specific code requirement, in plain language, with the citation and the note to verify adoption with the AHJ.",
+  },
+  {
+    icon: "check",
+    title: "Close the job.",
+    body: "Certain and moving, they finish clean, quote it right, and walk off the job paid — on to the next one.",
+  },
+];
+
+const capabilities = [
+  {
+    icon: "compass",
+    title: "Diagnosis help",
+    body: "When the leak could be three things, Rex helps you rule them out fast — the most likely cause and the test to confirm it — so you stop guessing and start moving.",
+  },
+  {
+    icon: "doc",
+    title: "Code reference",
+    body: "The right code section for the job you're standing on, in plain language, with the citation — and always the note to verify adoption with your AHJ. Certainty, not a hunch.",
+  },
+  {
+    icon: "wrench",
+    title: "Report & quote generation",
+    body: "Turn the work into professional reports and quotes that win the job and let you charge what you're worth — consistent every time, across every tech.",
+  },
+];
+---
+
+<BaseLayout
+  title="How It Works"
+  description="See a real job, start to finish: a stuck moment, Rex, and a certain, code-backed answer that closes the job. Diagnosis help, code reference, reports & quotes — and Rex always informs your judgment, never replaces it."
+>
+  <!-- intro -->
+  <section class="bg-gradient-to-b from-tint to-white">
+    <div class="container-tb py-16 text-center lg:py-20">
+      <span class="eyebrow">How it works</span>
+      <h1 class="mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">
+        A real job, start to finish.
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-body sm:text-xl">
+        No more standing there guessing. You're unstuck in seconds and back on
+        the job — certain, moving, closing.
+      </p>
+    </div>
+  </section>
+
+  <!-- WALK-THROUGH -->
+  <Section tone="white">
+    <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div class="order-2 lg:order-1">
+        <ol class="relative space-y-8 border-l-2 border-tint pl-8">
+          {
+            walkthrough.map((w, i) => (
+              <li class="relative">
+                <span class="absolute -left-[2.85rem] grid h-9 w-9 place-items-center rounded-full bg-navy text-sm font-bold text-white">
+                  {i + 1}
+                </span>
+                <div class="flex items-center gap-2.5 text-blue">
+                  <Icon name={w.icon as any} size={22} />
+                  <h3 class="text-xl text-navy">{w.title}</h3>
+                </div>
+                <p class="mt-2 text-body">{w.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div class="order-1 flex justify-center lg:order-2">
+        <div class="relative w-full max-w-md rounded-[var(--radius-card)] border border-navy/10 bg-tint p-8 shadow-[var(--shadow-card)]">
+          <LottiePlayer
+            client:visible
+            src="/assets/motion/Rex_JobComplete.json"
+            playOnView={true}
+            loop={false}
+            className="mx-auto h-64 w-64"
+            ariaLabel="Rex marks the job complete"
+          />
+          <p class="text-center text-lg font-extrabold text-navy">
+            “You're moving again in seconds — not standing there guessing.”
+          </p>
+          <p class="mt-2 text-center text-body">
+            Job closed. On to the next one. That's Rex.
+          </p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 3 CAPABILITIES -->
+  <Section tone="tint">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow">What Rex does on the job</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl">Three ways Rex keeps you certain.</h2>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        capabilities.map((c) => (
+          <div class="rounded-[var(--radius-card)] bg-white p-7 shadow-[var(--shadow-card)]">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-navy text-white">
+              <Icon name={c.icon as any} />
+            </span>
+            <h3 class="mt-5 text-xl">{c.title}</h3>
+            <p class="mt-2 text-body">{c.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- SAFETY AS TRUST -->
+  <Section tone="white">
+    <div class="grid items-center gap-10 lg:grid-cols-2">
+      <div class="rounded-[var(--radius-card)] border-l-4 border-amber bg-surface p-8">
+        <span class="inline-flex items-center gap-2 rounded-full bg-amber/10 px-3 py-1 text-sm font-bold text-amber">
+          <Icon name="shield" size={18} /> Rex has your back
+        </span>
+        <p class="mt-4 text-2xl font-extrabold leading-snug text-navy">
+          On a real hazard — gas, CO, a fall risk, a live circuit — Rex stops
+          you before anything else.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-3xl sm:text-4xl">Safety first — always.</h2>
+        <p class="mt-4 text-lg text-body">
+          Before Rex answers anything, it checks for the dangerous stuff. If
+          there's a real hazard in front of you, that comes first — every time.
+        </p>
+        <p class="mt-4 text-lg text-body">
+          This isn't there to scare you. It's there because a master watching
+          your back would do the same. It's how Rex earns your trust on the job.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- IN CONTROL -->
+  <Section tone="navy">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="eyebrow text-blue">You stay the professional</span>
+      <h2 class="mt-3 text-3xl text-white sm:text-4xl">
+        Rex informs your judgment. It never replaces it.
+      </h2>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-white/80">
+        You already know the trade. Rex is the certainty in your pocket — not
+        the boss. It backs your call with a code-backed answer; the call, the
+        licence, and the name on the work stay yours.
+      </p>
+    </div>
+  </Section>
+
+  <FinalCTA
+    heading="See it on your next job."
+    sub="Hit a wall, ask Rex, keep moving. Free to start — 10 questions on the house."
+  />
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+/** The closing download band — the page ends on the primary action.
+ *  Reused across pages so every page closes the same way (peak-end). */
+import StoreBadges from "./StoreBadges.astro";
+import { SITE } from "@/data/site";
+
+interface Props {
+  heading?: string;
+  sub?: string;
+}
+const {
+  heading = SITE.coreLine,
+  sub = "Keep moving, stay certain, close the job. Put Rex in your pocket — free to start.",
+} = Astro.props;
+---
+
+<section class="bg-navy">
+  <div class="container-tb py-16 text-center sm:py-20">
+    <h2 class="mx-auto max-w-3xl text-3xl font-extrabold text-white sm:text-4xl">
+      {heading}
+    </h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-white/75">{sub}</p>
+    <div class="mt-8">
+      <StoreBadges align="center" />
+    </div>
+  </div>
+</section>

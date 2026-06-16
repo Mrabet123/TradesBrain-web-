@@ -1,0 +1,160 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Section.astro";
+import Icon from "@/components/Icon.astro";
+import { CONTACT, TRIAL } from "@/data/site";
+
+const gettingStarted = [
+  {
+    q: "How do I set up TradesBrain?",
+    a: "Download the app from the App Store or Google Play, open it, and choose your trade. That's it — you're ready to ask Rex your first question.",
+  },
+  {
+    q: "How do I choose my trade?",
+    a: "On first launch the app asks for your trade so Rex tailors its answers and code references to your work. You can change it any time in Settings.",
+  },
+  {
+    q: "How do I start using Rex?",
+    a: "Point your phone at the job, ask your question out loud or by photo, and Rex returns the code-backed answer in plain language — with the note to verify adoption with your AHJ.",
+  },
+];
+
+const billing = [
+  {
+    q: "How does the free trial work?",
+    a: `${TRIAL.headline}. Put Rex on your next ten questions and see the difference on the job — no card required to get moving.`,
+  },
+  {
+    q: "What plans are available?",
+    a: "Solo, Pro, and Team. Each can be billed monthly or annually (annual locks the lower rate for the year). See the Plans page for what's included.",
+  },
+  {
+    q: "How do renewals and cancellation work?",
+    a: "Your plan renews automatically at the end of each billing period. You can change or cancel any time from inside the app; access continues until the end of the period you've paid for.",
+  },
+  {
+    q: "Is the plan the same on iPhone and Android?",
+    a: "Yes — your plan and what's included are the same whichever device you download on, and you manage it right from the app.",
+    // ⚠️ Confirm against the iOS IAP decision (iOS Build Guide Step 0) so this
+    //   matches the Pricing page before the page ships.
+  },
+];
+
+const howRex = [
+  {
+    q: "What can Rex do?",
+    a: "Rex helps you diagnose the job, gives you the right code reference in plain language with a citation, and generates professional reports and quotes.",
+  },
+  {
+    q: "What can't Rex do?",
+    a: "Rex informs your judgment — it does not replace you, your licence, or your decision. It's a co-pilot, not the boss. The call on the job is always yours.",
+  },
+  {
+    q: "What is the AHJ note?",
+    a: "Codes are adopted and amended locally. Rex always reminds you to verify adoption with your Authority Having Jurisdiction (AHJ), because local amendments can apply to your specific job.",
+  },
+  {
+    q: "What does Rex do about safety?",
+    a: "On a real hazard — gas, CO, a fall risk, a live circuit — Rex stops you and flags it before anything else. It's there to have your back on the job.",
+  },
+];
+
+const Group = "space-y-3";
+---
+
+<BaseLayout
+  title="Support & Help Center"
+  description="TradesBrain support: getting started, billing and subscription, how Rex works, and how to reach us. The reachable support channel for the app."
+>
+  <section class="bg-gradient-to-b from-tint to-white">
+    <div class="container-tb py-16 text-center lg:py-20">
+      <span class="eyebrow">Support</span>
+      <h1 class="mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">Help Center</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-body sm:text-xl">
+        Getting started, billing, how Rex works, and how to reach a real person.
+      </p>
+    </div>
+  </section>
+
+  <Section tone="white">
+    <div class="mx-auto max-w-3xl space-y-14">
+      <div>
+        <h2 class="flex items-center gap-3 text-2xl">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-tint text-blue"><Icon name="compass" size={20} /></span>
+          Getting started
+        </h2>
+        <div class={`mt-6 ${Group}`}>
+          {
+            gettingStarted.map((item) => (
+              <details class="group rounded-xl border border-navy/10 bg-white p-5 open:bg-tint/40">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-navy">
+                  {item.q}
+                  <span class="text-blue transition group-open:rotate-45">+</span>
+                </summary>
+                <p class="mt-3 text-body">{item.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+
+      <div>
+        <h2 class="flex items-center gap-3 text-2xl">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-tint text-blue"><Icon name="dollar" size={20} /></span>
+          Billing & subscription
+        </h2>
+        <div class={`mt-6 ${Group}`}>
+          {
+            billing.map((item) => (
+              <details class="group rounded-xl border border-navy/10 bg-white p-5 open:bg-tint/40">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-navy">
+                  {item.q}
+                  <span class="text-blue transition group-open:rotate-45">+</span>
+                </summary>
+                <p class="mt-3 text-body">{item.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+
+      <div>
+        <h2 class="flex items-center gap-3 text-2xl">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-tint text-blue"><Icon name="shield" size={20} /></span>
+          How Rex works
+        </h2>
+        <div class={`mt-6 ${Group}`}>
+          {
+            howRex.map((item) => (
+              <details class="group rounded-xl border border-navy/10 bg-white p-5 open:bg-tint/40">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-navy">
+                  {item.q}
+                  <span class="text-blue transition group-open:rotate-45">+</span>
+                </summary>
+                <p class="mt-3 text-body">{item.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CONTACT -->
+  <Section tone="navy">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow text-blue">Contact</span>
+      <h2 class="mt-3 text-3xl text-white sm:text-4xl">Still need a hand?</h2>
+      <p class="mt-4 text-lg text-white/80">
+        Email us and a real person will get back to you. We typically reply
+        within one business day.
+      </p>
+      <a
+        href={`mailto:${CONTACT.support}`}
+        class="mt-7 inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-base font-semibold text-navy transition hover:-translate-y-0.5"
+      >
+        <Icon name="check" size={18} /> {CONTACT.support}
+      </a>
+    </div>
+  </Section>
+</BaseLayout>

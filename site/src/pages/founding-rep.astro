@@ -1,0 +1,160 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Section.astro";
+import Icon from "@/components/Icon.astro";
+import FinalCTA from "@/components/FinalCTA.astro";
+import FoundingRepForm from "@/components/react/FoundingRepForm.tsx";
+import EarlyAdopterCounter from "@/components/react/EarlyAdopterCounter.tsx";
+import { CONTACT, EARLY_ADOPTER, STORE_LINKS } from "@/data/site";
+
+const repPerks = [
+  {
+    icon: "compass",
+    title: "Free access while you're an active Rep",
+    body: "Free use of the app for as long as you're an active TradesBrain Rep contributing to our growth. It's tied to staying in the game with us.",
+  },
+  {
+    icon: "dollar",
+    title: "Commission on every pro you bring",
+    body: "Put your name behind the tool that keeps your people moving — and get rewarded on every subscription you bring in.",
+  },
+  {
+    icon: "user",
+    title: "Your name, your standing",
+    body: "You're respected in your trade and your state. Reps are the same-tribe proof other pros trust before they download.",
+  },
+];
+
+const whyNow = [
+  "Shape the product — founding members help build the tool the trade actually needed.",
+  "Get in first and lock the early benefit before the spots are gone.",
+  "Your voice carries the most weight now, at the start.",
+];
+---
+
+<BaseLayout
+  title="Founding Rep & Early Adopter"
+  description="Represent TradesBrain in your state: free access while you're an active Rep contributing to our growth, plus commission on every pro you bring. Or get in as an early adopter — first 200 pros get 30% off for three months."
+>
+  <!-- intro -->
+  <section class="bg-gradient-to-b from-tint to-white">
+    <div class="container-tb py-16 text-center lg:py-20">
+      <span class="eyebrow">Founding members</span>
+      <h1 class="mx-auto mt-4 max-w-3xl text-4xl sm:text-5xl">
+        Get in first. Help build the tool the trade actually needed.
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-body sm:text-xl">
+        Two ways to be a founding member — represent TradesBrain in your state,
+        or lock the early-adopter offer. Pick your lane below.
+      </p>
+    </div>
+  </section>
+
+  <!-- ───────── OFFER 1: FOUNDING REP ───────── -->
+  <Section tone="white">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-1.5 text-sm font-bold text-white">
+        <Icon name="compass" size={18} /> Offer 1 · Founding Rep
+      </span>
+      <h2 class="mt-4 text-3xl sm:text-4xl">
+        Represent TradesBrain in your state.
+      </h2>
+      <p class="mt-4 text-lg text-body">
+        Founding Reps are senior, licensed, respected tradespeople who put their
+        name behind the tool that keeps their people moving — and get rewarded
+        for it.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        repPerks.map((p) => (
+          <div class="rounded-[var(--radius-card)] border border-navy/10 bg-white p-7 shadow-[var(--shadow-card)]">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-tint text-blue">
+              <Icon name={p.icon as any} />
+            </span>
+            <h3 class="mt-5 text-lg">{p.title}</h3>
+            <p class="mt-2 text-body">{p.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- wording lock -->
+    <div class="mx-auto mt-8 max-w-3xl rounded-xl border border-blue/20 bg-tint p-5 text-sm text-navy">
+      <strong>How the Rep benefit works:</strong> the app is free for as long as
+      you remain an active TradesBrain Rep contributing to our growth. It's tied
+      to active contribution — not a lifetime grant.
+    </div>
+
+    <!-- application -->
+    <div class="mx-auto mt-12 max-w-3xl">
+      <h3 class="text-center text-2xl">Become a Founding Rep</h3>
+      <p class="mx-auto mt-2 max-w-xl text-center text-body">
+        Criteria: licensed, experienced, and well-connected in your trade and
+        state. We read every application personally.
+      </p>
+      <div class="mt-6">
+        <FoundingRepForm client:visible to={CONTACT.reps} />
+      </div>
+    </div>
+  </Section>
+
+  <!-- ───────── OFFER 2: EARLY ADOPTER ───────── -->
+  <Section tone="navy">
+    <div class="grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <span class="inline-flex items-center gap-2 rounded-full bg-blue px-4 py-1.5 text-sm font-bold text-white">
+          <Icon name="bolt" size={18} /> Offer 2 · Early Adopter
+        </span>
+        <h2 class="mt-4 text-3xl text-white sm:text-4xl">
+          First {EARLY_ADOPTER.totalSpots} pros get {EARLY_ADOPTER.offer}.
+        </h2>
+        <p class="mt-4 text-lg text-white/80">
+          Separate from the Rep program — open to any pro. Get in first, lock
+          the early benefit, and help build the tool the trade actually needed.
+        </p>
+        <ul class="mt-6 space-y-3">
+          {
+            whyNow.map((w) => (
+              <li class="flex gap-3 text-white/85">
+                <Icon name="check" size={22} class="mt-0.5 shrink-0 text-blue" />
+                <span>{w}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={STORE_LINKS.appStore}
+            class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-navy transition hover:-translate-y-0.5"
+          >
+            Get the early-adopter offer
+          </a>
+          <a
+            href="/download"
+            class="inline-flex items-center justify-center rounded-xl border-2 border-white/30 px-6 py-3 text-base font-semibold text-white transition hover:border-white"
+          >
+            How to download
+          </a>
+        </div>
+      </div>
+      <div>
+        <EarlyAdopterCounter
+          client:visible
+          total={EARLY_ADOPTER.totalSpots}
+          claimed={EARLY_ADOPTER.spotsClaimed}
+          offer={EARLY_ADOPTER.offer}
+        />
+        <p class="mt-3 text-center text-xs text-white/50">
+          The counter is real — we never fake the number.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <FinalCTA
+    heading="Founding members shape what Rex becomes."
+    sub="Get in first. Lock the early benefit. Keep your people moving."
+  />
+</BaseLayout>

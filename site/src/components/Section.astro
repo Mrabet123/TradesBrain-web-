@@ -1,0 +1,21 @@
+---
+/** Vertical section wrapper with consistent rhythm and optional surface. */
+interface Props {
+  tone?: "white" | "tint" | "navy" | "surface";
+  id?: string;
+  class?: string;
+}
+const { tone = "white", id, class: className = "" } = Astro.props;
+const bg = {
+  white: "bg-white",
+  tint: "bg-tint",
+  surface: "bg-surface",
+  navy: "bg-navy text-white",
+}[tone];
+---
+
+<section id={id} class={`${bg} py-16 sm:py-20 lg:py-24 ${className}`}>
+  <div class="container-tb">
+    <slot />
+  </div>
+</section>

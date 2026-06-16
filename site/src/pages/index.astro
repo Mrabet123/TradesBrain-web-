@@ -1,0 +1,307 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Section.astro";
+import StoreBadges from "@/components/StoreBadges.astro";
+import PhoneMockup from "@/components/PhoneMockup.astro";
+import FinalCTA from "@/components/FinalCTA.astro";
+import Icon from "@/components/Icon.astro";
+import Button from "@/components/Button.astro";
+import { SITE, PLANS, TRIAL } from "@/data/site";
+
+const problems = [
+  {
+    icon: "clock",
+    tag: "Time",
+    line: "Every hour you're stuck on one job is an hour the next job is waiting.",
+    sub: "The job that should take an hour just took three. There went the afternoon.",
+  },
+  {
+    icon: "dollar",
+    tag: "Money",
+    line: "You don't lose money on the jobs you close. You lose it on the ones that stall.",
+    sub: "A job you can't close on the spot is money standing still.",
+  },
+  {
+    icon: "stuck",
+    tag: "Stuck",
+    line: "The leak could be three things. You're ruling them out one at a time while the clock runs.",
+    sub: "When the diagnosis won't come together, the whole job stops on that one question.",
+  },
+];
+
+const steps = [
+  {
+    icon: "camera",
+    step: "Photo",
+    title: "Show Rex the job.",
+    body: "Point your phone at what you're looking at — the panel, the leak, the reading that doesn't add up.",
+  },
+  {
+    icon: "mic",
+    step: "Voice",
+    title: "Ask Rex, hands-free.",
+    body: "Gloves on, in the sun, mid-job. Ask it like you'd ask a master standing next to you.",
+  },
+  {
+    icon: "check",
+    step: "Answer",
+    title: "Get the code-backed answer.",
+    body: "The right code section, in plain language, with the note to verify adoption with your AHJ.",
+  },
+];
+
+const value = [
+  {
+    who: "Solo Pro",
+    icon: "user",
+    lines: [
+      "More jobs a day, closed on the spot, with reports that let you charge what you're worth.",
+      "It's your name on the work. Rex makes sure every job lives up to it — fast.",
+    ],
+  },
+  {
+    who: "Crew / Team Owner",
+    icon: "users",
+    lines: [
+      "Every tech on your crew gets the certain answer the first time. Fewer stalls, more jobs closed, across the whole team.",
+      "Consistent, professional work company-wide — whether it's your most senior tech or your newest.",
+    ],
+  },
+];
+
+const icps = [
+  {
+    icon: "user",
+    who: "Solo Pro",
+    line: "More jobs a day, closed clean, with quotes that win the work and let you charge what you're worth.",
+  },
+  {
+    icon: "users",
+    who: "Crew / Team Owner",
+    line: "One stalled job per tech per day is a serious revenue leak. Give every tech the certain answer the first time.",
+  },
+  {
+    icon: "book",
+    who: "Apprentice",
+    line: "A master in your pocket. Learn the code as you work, and never freeze up on a job.",
+  },
+];
+---
+
+<BaseLayout>
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-tint to-white">
+    <div class="container-tb grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
+      <div>
+        <span class="eyebrow">Keep moving · Stay certain · Close the job</span>
+        <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-[3.4rem]">
+          You already know the trade.
+          <span class="text-blue"> Rex makes sure you never lose money proving it.</span>
+        </h1>
+        <p class="mt-5 max-w-xl text-lg text-body sm:text-xl">
+          Master-level backup, right in your pocket — so a stuck moment never
+          costs you the job.
+        </p>
+        <div class="mt-8">
+          <StoreBadges />
+        </div>
+        <p class="mt-5 flex items-center gap-2 text-sm font-medium text-body">
+          <Icon name="check" size={18} class="text-success" />
+          {TRIAL.headline} — see the difference on your next job.
+        </p>
+      </div>
+
+      <div class="lg:pl-6">
+        <PhoneMockup />
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM (loss-framed) -->
+  <Section tone="white">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow">The real cost of getting stuck</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl">
+        It isn't the job that costs you. It's getting stuck on it.
+      </h2>
+      <p class="mt-4 text-lg text-body">
+        The skill isn't the bottleneck. Standing there on one question is — and
+        it bleeds time, money, and momentum every day.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        problems.map((p) => (
+          <div class="rounded-[var(--radius-card)] border border-navy/10 bg-white p-7 shadow-[var(--shadow-card)]">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-tint text-blue">
+              <Icon name={p.icon as any} />
+            </span>
+            <span class="mt-5 block text-sm font-bold uppercase tracking-wider text-blue">
+              {p.tag}
+            </span>
+            <p class="mt-2 text-lg font-semibold text-navy">{p.line}</p>
+            <p class="mt-3 text-body">{p.sub}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- HOW IT WORKS -->
+  <Section tone="tint">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow">How it works</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl">Photo. Voice. Answer.</h2>
+      <p class="mt-4 text-lg text-body">
+        Hit a wall on a job? Ask Rex, get a straight answer, keep moving.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        steps.map((s, i) => (
+          <div class="relative rounded-[var(--radius-card)] bg-white p-7 shadow-[var(--shadow-card)]">
+            <span class="absolute right-6 top-6 text-5xl font-extrabold text-tint">
+              {i + 1}
+            </span>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-navy text-white">
+              <Icon name={s.icon as any} />
+            </span>
+            <span class="mt-5 block text-sm font-bold uppercase tracking-wider text-blue">
+              {s.step}
+            </span>
+            <h3 class="mt-1 text-xl">{s.title}</h3>
+            <p class="mt-2 text-body">{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-10 text-center">
+      <Button href="/how-it-works" variant="ghost">See a real job, start to finish →</Button>
+    </div>
+  </Section>
+
+  <!-- WHAT YOU GET (earning) -->
+  <Section tone="white">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow">What you get</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl">
+        This isn't about saving hassle. It's about making money.
+      </h2>
+      <p class="mt-4 text-lg text-body">
+        Certain and moving means one thing: the job gets closed, and you're on
+        to the next.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      {
+        value.map((v) => (
+          <div class="rounded-[var(--radius-card)] border border-navy/10 bg-gradient-to-b from-tint to-white p-8 shadow-[var(--shadow-card)]">
+            <span class="inline-flex items-center gap-2.5 rounded-full bg-navy px-4 py-2 text-sm font-bold text-white">
+              <Icon name={v.icon as any} size={18} /> {v.who}
+            </span>
+            <ul class="mt-6 space-y-4">
+              {v.lines.map((line) => (
+                <li class="flex gap-3">
+                  <Icon name="check" size={22} class="mt-0.5 shrink-0 text-success" />
+                  <span class="text-lg leading-snug text-navy">{line}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- WHO IT'S FOR -->
+  <Section tone="navy">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow text-blue">Who it's for</span>
+      <h2 class="mt-3 text-3xl text-white sm:text-4xl">
+        Same problem. Different stakes. Your terms.
+      </h2>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        icps.map((p) => (
+          <div class="rounded-[var(--radius-card)] border border-white/15 bg-white/5 p-7">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-blue text-white">
+              <Icon name={p.icon as any} />
+            </span>
+            <h3 class="mt-5 text-xl text-white">{p.who}</h3>
+            <p class="mt-2 text-white/75">{p.line}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- TRUST STRIP -->
+  <Section tone="tint">
+    <div class="rounded-[var(--radius-card)] border border-navy/10 bg-white p-8 text-center shadow-[var(--shadow-card)] sm:p-12">
+      <span class="eyebrow">Same tribe</span>
+      <p class="mx-auto mt-4 max-w-3xl text-2xl font-extrabold leading-snug text-navy sm:text-3xl">
+        Built by — and with — real, licensed tradespeople. Rex talks like the
+        job site, because that's where it was made.
+      </p>
+      <p class="mx-auto mt-4 max-w-xl text-body">
+        Our Founding Reps are senior, licensed pros who put their name behind
+        the tool that keeps their people moving. Their faces and their words go
+        right here as we launch.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <Button href="/founding-rep" variant="navy">Meet the Founding Reps →</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- PRICING PREVIEW -->
+  <Section tone="white">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow">Plans</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl">
+        One job you don't lose to a stall covers the whole year.
+      </h2>
+      <p class="mt-4 text-lg text-body">
+        Start free. Put Rex on your next ten questions and see the difference on
+        the job.
+      </p>
+    </div>
+
+    <div class="mt-12 grid items-stretch gap-6 md:grid-cols-3">
+      {
+        PLANS.map((plan) => (
+          <div
+            class:list={[
+              "relative flex flex-col rounded-[var(--radius-card)] border bg-white p-7 shadow-[var(--shadow-card)]",
+              plan.anchored ? "border-blue ring-2 ring-blue/30" : "border-navy/10",
+            ]}
+          >
+            {plan.anchored && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-blue px-4 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                Most pros choose this
+              </span>
+            )}
+            <h3 class="text-xl">{plan.name}</h3>
+            <p class="mt-1 text-sm text-body">{plan.forWho}</p>
+            <p class="mt-5 text-navy">
+              <span class="text-4xl font-extrabold tracking-tight">${plan.annualMonthly}</span>
+              <span class="text-body">/mo{plan.perSeat ? " · seat" : ""}</span>
+            </p>
+            <p class="mt-1 text-xs text-body/70">billed annually · the smart, anchored choice</p>
+            <p class="mt-4 text-sm font-semibold text-navy">{plan.valueLine}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-10 text-center">
+      <Button href="/pricing" variant="primary" size="lg">See everything that's included →</Button>
+    </div>
+  </Section>
+
+  <!-- FINAL CTA -->
+  <FinalCTA />
+</BaseLayout>

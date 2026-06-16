@@ -1,0 +1,69 @@
+---
+/** Footer: nav, legal (Privacy/Terms), contact, domain (Spec §2). */
+import Logo from "./Logo.astro";
+import { SITE, CONTACT, NAV } from "@/data/site";
+const year = new Date().getFullYear();
+const legal = [
+  { label: "Support", href: "/support" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Use", href: "/terms" },
+];
+---
+
+<footer class="bg-navy text-white/80">
+  <div class="container-tb grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <Logo size={34} light={true} />
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
+        {SITE.spine} That's Rex — a master-level co-pilot in your pocket,
+        built with real tradespeople.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-bold uppercase tracking-wider text-white">Explore</h3>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a class="transition hover:text-white" href="/">Home</a></li>
+        {
+          NAV.map((item) => (
+            <li>
+              <a class="transition hover:text-white" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li><a class="transition hover:text-white" href="/download">Download</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-bold uppercase tracking-wider text-white">Company</h3>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {
+          legal.map((item) => (
+            <li>
+              <a class="transition hover:text-white" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a class="transition hover:text-white" href={`mailto:${CONTACT.support}`}>
+            {CONTACT.support}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-tb flex flex-col items-center justify-between gap-3 py-6 text-sm text-white/60 sm:flex-row">
+      <p>© {year} {SITE.name}. {SITE.domain}</p>
+      <p class="text-white/50">
+        Rex informs your judgment — it never replaces you or your licence.
+      </p>
+    </div>
+  </div>
+</footer>

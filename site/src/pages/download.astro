@@ -1,0 +1,69 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Section.astro";
+import StoreBadges from "@/components/StoreBadges.astro";
+import Icon from "@/components/Icon.astro";
+import DownloadQR from "@/components/react/DownloadQR.tsx";
+import { SITE, TRIAL } from "@/data/site";
+
+const needs = [
+  { icon: "compass", text: "iPhone or Android — Rex lives in your pocket, on the job." },
+  { icon: "mic", text: "Open the app, pick your trade, and ask Rex your first question." },
+  { icon: "check", text: "Start with 10 free questions. No card to keep moving." },
+];
+---
+
+<BaseLayout
+  title="Download"
+  description="Download TradesBrain for iPhone or Android. Scan the QR to install on your phone, pick your trade, and put Rex on your next job."
+>
+  <Section tone="tint" class="!py-0">
+    <div class="grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
+      <div>
+        <span class="eyebrow">Download</span>
+        <h1 class="mt-4 text-4xl sm:text-5xl">
+          Put Rex in your pocket.
+        </h1>
+        <p class="mt-5 max-w-lg text-lg text-body sm:text-xl">
+          {SITE.spine} It starts the moment you download.
+        </p>
+        <div class="mt-8">
+          <StoreBadges size="lg" />
+        </div>
+
+        <ul class="mt-10 space-y-4">
+          {
+            needs.map((n) => (
+              <li class="flex items-center gap-3">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-navy text-white">
+                  <Icon name={n.icon as any} size={20} />
+                </span>
+                <span class="text-navy">{n.text}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="flex flex-col items-center gap-4">
+        <DownloadQR client:visible url={`${SITE.url}/download`} />
+        <p class="max-w-xs text-center text-sm text-body">
+          On a desktop? Scan with your phone's camera to download where you'll
+          actually use it.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- reassurance band -->
+  <section class="bg-navy">
+    <div class="container-tb py-14 text-center">
+      <h2 class="mx-auto max-w-3xl text-2xl font-extrabold text-white sm:text-3xl">
+        {SITE.coreLine}
+      </h2>
+      <p class="mx-auto mt-3 max-w-xl text-white/75">
+        {TRIAL.line}
+      </p>
+    </div>
+  </section>
+</BaseLayout>

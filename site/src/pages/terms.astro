@@ -1,0 +1,70 @@
+---
+import LegalLayout from "@/layouts/LegalLayout.astro";
+import { CONTACT, SITE } from "@/data/site";
+---
+
+<LegalLayout
+  title="Terms of Use"
+  description="The terms that govern your use of TradesBrain and Rex."
+  updated="Pending — set on publish"
+>
+  <p>
+    These Terms of Use govern your access to and use of the {SITE.name} app and
+    this website. The structure below covers subscriptions, acceptable use, and
+    the liability framing the service requires; the binding legal wording is
+    being completed with our counsel.
+  </p>
+
+  <h2>1. The service</h2>
+  <p>
+    {SITE.name} provides Rex, a co-pilot that offers diagnosis help, code
+    references, and report and quote generation for trade professionals.
+  </p>
+
+  <h2>2. Rex informs your judgment — it does not replace you</h2>
+  <p>
+    Rex is a professional aid, not a substitute for your training, your licence,
+    or your professional judgment. You remain responsible for the work you
+    perform and the decisions you make on the job.
+  </p>
+  <p>
+    Codes are adopted and amended locally. Rex's answers include a reminder to
+    verify adoption with your Authority Having Jurisdiction (AHJ); you are
+    responsible for confirming the applicable requirements for your specific
+    job. {SITE.name} does not guarantee outcomes and is not a licensed
+    contractor, engineer, or code authority.
+  </p>
+  <span class="placeholder">[ FOR LAWYER REVIEW ] — Finalize the liability, disclaimer of warranties, "no professional advice," and limitation-of-liability language. This is the core risk framing and must be counsel-approved.</span>
+
+  <h2>3. Subscriptions, billing, and cancellation</h2>
+  <p>
+    Paid plans are billed in advance on a monthly or annual basis and renew
+    automatically until cancelled. You can manage or cancel your subscription
+    from within the app; access continues through the end of the paid period.
+  </p>
+  <span class="placeholder">[ FOR LAWYER REVIEW ] — Confirm billing terms, refund policy, auto-renewal disclosures, and any store-specific (App Store / Google Play) purchase terms consistent with the iOS IAP decision.</span>
+
+  <h2>4. Acceptable use</h2>
+  <p>You agree not to misuse the service, including by:</p>
+  <ul>
+    <li>Using it unlawfully or to violate the rights of others.</li>
+    <li>Attempting to disrupt, reverse-engineer, or gain unauthorized access.</li>
+    <li>Relying on Rex's output where doing so would be unsafe or unlawful.</li>
+  </ul>
+  <span class="placeholder">[ FOR LAWYER REVIEW ] — Complete the acceptable-use and termination provisions.</span>
+
+  <h2>5. Intellectual property</h2>
+  <span class="placeholder">[ FOR LAWYER REVIEW ] — Confirm ownership of the service and the license granted to users, and the treatment of user-submitted content.</span>
+
+  <h2>6. Disclaimers & limitation of liability</h2>
+  <span class="placeholder">[ FOR LAWYER REVIEW ] — Insert the warranty disclaimer and limitation-of-liability clauses, jurisdiction-appropriate.</span>
+
+  <h2>7. Governing law</h2>
+  <span class="placeholder">[ FOR LAWYER REVIEW ] — Specify governing law and dispute-resolution terms.</span>
+
+  <h2>8. Contact</h2>
+  <p>
+    Questions about these terms? Email
+    <a href={`mailto:${CONTACT.support}`}>{CONTACT.support}</a>.
+  </p>
+</LegalLayout>

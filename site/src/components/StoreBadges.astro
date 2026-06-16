@@ -1,0 +1,63 @@
+---
+/**
+ * App Store + Google Play download badges — the primary conversion action.
+ * Links come from STORE_LINKS (placeholders until the apps are live).
+ * Self-contained inline SVG badges so they render crisp and need no assets.
+ */
+import { STORE_LINKS } from "@/data/site";
+
+interface Props {
+  /** "left" (default) | "center" */
+  align?: "left" | "center";
+  size?: "md" | "lg";
+  class?: string;
+}
+const { align = "left", size = "lg", class: className = "" } = Astro.props;
+
+const live =
+  STORE_LINKS.appStore !== "#" || STORE_LINKS.googlePlay !== "#";
+const h = size === "lg" ? "h-14" : "h-12";
+const justify = align === "center" ? "justify-center" : "justify-start";
+---
+
+<div class={`flex flex-wrap items-center gap-3 ${justify} ${className}`}>
+  <a
+    href={STORE_LINKS.appStore}
+    aria-label="Download on the App Store"
+    data-store="ios"
+    class={`group inline-flex ${h} items-center gap-3 rounded-xl bg-navy px-5 text-white shadow-card transition hover:bg-navy-900 hover:-translate-y-0.5`}
+  >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M16.36 1.43c.04 1.06-.35 2.09-1.04 2.85-.71.79-1.86 1.4-2.98 1.31-.05-1.04.39-2.12 1.06-2.84.74-.79 1.99-1.38 2.96-1.32zM19.6 17.3c-.53 1.22-.78 1.76-1.46 2.84-.95 1.51-2.29 3.39-3.95 3.4-1.47.01-1.85-.96-3.85-.95-2 .01-2.42.97-3.89.95-1.66-.01-2.93-1.71-3.88-3.22C-.07 16.06-.35 10.1 1.36 6.93c1.2-2.23 3.09-3.53 4.86-3.53 1.81 0 2.95 1 4.45 1 1.46 0 2.35-1 4.44-1 1.58 0 3.25.86 4.45 2.35-3.91 2.14-3.27 7.72.04 9.55z"/>
+    </svg>
+    <span class="text-left leading-none">
+      <span class="block text-[0.65rem] opacity-80">Download on the</span>
+      <span class="block text-lg font-semibold -mt-0.5">App Store</span>
+    </span>
+  </a>
+
+  <a
+    href={STORE_LINKS.googlePlay}
+    aria-label="Get it on Google Play"
+    data-store="android"
+    class={`group inline-flex ${h} items-center gap-3 rounded-xl bg-navy px-5 text-white shadow-card transition hover:bg-navy-900 hover:-translate-y-0.5`}
+  >
+    <svg width="22" height="24" viewBox="0 0 512 512" aria-hidden="true">
+      <path fill="#EA4335" d="M325.3 234.3 104.6 13l280.8 161.2-60.1 60.1z"/>
+      <path fill="#FBBC04" d="M410.9 175.5 461 204.3c20.6 11.8 20.6 41.6 0 53.4l-50.1 28.8-65.6-55.5 65.6-55.5z"/>
+      <path fill="#34A853" d="M104.6 499 325.3 277.7l60.1 60.1L104.6 499z"/>
+      <path fill="#4285F4" d="M104.6 13C98.3 15.9 94 22.2 94 31v450c0 8.8 4.3 15.1 10.6 18l220.7-221.3L104.6 13z"/>
+    </svg>
+    <span class="text-left leading-none">
+      <span class="block text-[0.65rem] opacity-80">Get it on</span>
+      <span class="block text-lg font-semibold -mt-0.5">Google Play</span>
+    </span>
+  </a>
+</div>
+{
+  !live && (
+    <p class={`mt-2 text-xs text-body/70 ${align === "center" ? "text-center" : ""}`}>
+      App launching soon — links go live the moment the apps are approved.
+    </p>
+  )
+}
