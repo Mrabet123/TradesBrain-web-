@@ -28,6 +28,22 @@ export const CONTACT = {
   reps: "ghassen.mansouri@trades-brain.com",
 };
 
+/**
+ * Founding Rep form delivery — the `founding-rep-email` Supabase Edge Function
+ * sends each application straight to CONTACT.reps via Resend (no mail client
+ * involved). The anon key is a public client credential by design; the
+ * function still gates on it and a honeypot field.
+ *
+ * ⚠️ For sending to work, set RESEND_API_KEY (and ideally RESEND_FROM with a
+ * verified trades-brain.com sender) in Supabase → Edge Functions secrets.
+ */
+export const FORM_API = {
+  foundingRep:
+    "https://quvcparzpurwwkrxpiki.supabase.co/functions/v1/founding-rep-email",
+  anonKey:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1dmNwYXJ6cHVyd3drcnhwaWtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMTc1NjAsImV4cCI6MjA5Mzc5MzU2MH0.2elPy01MVdv-tvWw1u88TATgxN3WYvDxmO9amLN6MQU",
+};
+
 export const STORE_LINKS = {
   // Placeholders until the apps are live (Build Playbook §4 + Workflow Guide Prompt 6).
   appStore: "#", // TODO: paste the App Store listing URL once live.

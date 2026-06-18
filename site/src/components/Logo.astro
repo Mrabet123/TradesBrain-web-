@@ -1,8 +1,9 @@
 ---
 /**
- * TradesBrain logo. Renders the hexagonal compass mark as crisp inline SVG
- * (recreated from the brand lockup so it stays sharp at any size), with an
- * optional "TradesBrain" wordmark — "Trades" in navy, "Brain" in blue.
+ * TradesBrain logo. Renders the official brand compass mark (PNG from the
+ * brand pack, so it matches the brand exactly at any size), with an optional
+ * "TradesBrain" wordmark — "Trades" in navy, "Brain" in blue
+ * (white on dark backgrounds).
  */
 interface Props {
   /** Show the wordmark next to the mark. */
@@ -25,40 +26,15 @@ const blue = "#2E75B6";
 ---
 
 <span class={`inline-flex items-center gap-2.5 ${className}`}>
-  <svg
+  <img
+    src="/assets/brand/rex-compass.png"
     width={size}
     height={size}
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    role="img"
-    aria-label="TradesBrain compass"
-  >
-    <!-- top & bottom mounting tabs -->
-    <rect x="25" y="6" width="14" height="6" rx="3" fill={light ? "#FFFFFF" : "#1E3A5F"} />
-    <rect x="25" y="52" width="14" height="6" rx="3" fill={light ? "#FFFFFF" : "#1E3A5F"} />
-    <!-- hexagon body (flat top/bottom, pointed sides) -->
-    <path
-      d="M32 11 L51 21 L51 43 L32 53 L13 43 L13 21 Z"
-      fill={light ? "rgba(255,255,255,0.12)" : "#1E3A5F"}
-      stroke={light ? "#FFFFFF" : "#16304F"}
-      stroke-width="1.5"
-    />
-    <!-- inner dial ring -->
-    <circle cx="32" cy="32" r="15" fill={light ? "rgba(255,255,255,0.06)" : "#16304F"} />
-    <circle cx="32" cy="32" r="15" stroke={blue} stroke-width="1.25" opacity="0.55" />
-    <!-- compass rose: 8-point star -->
-    <path
-      d="M32 18 L34.4 29.6 L46 32 L34.4 34.4 L32 46 L29.6 34.4 L18 32 L29.6 29.6 Z"
-      fill={light ? "#EEF5FC" : "#EEF5FC"}
-      opacity="0.92"
-    />
-    <!-- north needle -->
-    <path d="M32 17 L35 31 L29 31 Z" fill={blue} />
-    <!-- hub -->
-    <circle cx="32" cy="32" r="4.5" fill={navy} stroke={blue} stroke-width="2" />
-    <circle cx="32" cy="32" r="1.5" fill={blue} />
-  </svg>
+    style={`height:${size}px;width:${size}px`}
+    alt={withWordmark ? "" : "TradesBrain"}
+    loading="eager"
+    decoding="async"
+  />
   {
     withWordmark && (
       <span

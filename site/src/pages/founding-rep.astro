@@ -5,7 +5,7 @@ import Icon from "@/components/Icon.astro";
 import FinalCTA from "@/components/FinalCTA.astro";
 import FoundingRepForm from "@/components/react/FoundingRepForm.tsx";
 import EarlyAdopterCounter from "@/components/react/EarlyAdopterCounter.tsx";
-import { CONTACT, EARLY_ADOPTER, STORE_LINKS } from "@/data/site";
+import { CONTACT, EARLY_ADOPTER, STORE_LINKS, FORM_API } from "@/data/site";
 
 const repPerks = [
   {
@@ -95,7 +95,12 @@ const whyNow = [
         state. We read every application personally.
       </p>
       <div class="mt-6">
-        <FoundingRepForm client:visible to={CONTACT.reps} />
+        <FoundingRepForm
+          client:visible
+          to={CONTACT.reps}
+          endpoint={FORM_API.foundingRep}
+          anonKey={FORM_API.anonKey}
+        />
       </div>
     </div>
   </Section>
