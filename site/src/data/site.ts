@@ -65,12 +65,17 @@ export const EARLY_ADOPTER = {
  * Pricing — three plans, Pro anchored as the natural choice
  * (Spec Page 3 + Messaging Bank §10).
  *
- * Figures are the real Stripe prices from the app spec
- * (Instructions/TradesBrain_D9_StripeIntegration_v1.md §1.2):
- *   Solo  — $69/mo · $662.40/yr  (= $55.20/mo)
- *   Pro   — $120/mo · $1,152/yr  (= $96/mo)
- *   Team  — $260/mo · $2,496/yr  (= $208/mo) for a base of 3 seats,
- *           plus $89/mo ($854.40/yr) per additional seat.
+ * Figures follow TradesBrain_UnifiedPricing_v1.xlsx (the single source of
+ * truth across iOS, Android and web). The alignment rule:
+ *   • MONTHLY prices use Apple's closest predefined tier and are shown
+ *     IDENTICALLY on every surface (iOS IAP, Android, Website).
+ *   • ANNUAL prices stay at their real values on Android/Stripe/Web
+ *     (not Apple-tier-constrained).
+ *
+ *   Solo  — $69.99/mo · $662.40/yr  (= $55.20/mo)
+ *   Pro   — $119.99/mo · $1,152/yr  (= $96/mo)
+ *   Team  — $259.99/mo · $2,496/yr  (= $208/mo) for a base of 3 seats,
+ *           plus $89.99/mo ($854.40/yr) per additional seat.
  * The monthly-equivalent on annual is a display-only calculation — the
  * actual annual charge is the full yearly amount billed once.
  *
@@ -83,7 +88,7 @@ export const PLANS = [
     id: "solo",
     name: "Solo",
     forWho: "The solo pro who owns the job and the name on it.",
-    monthly: "69",
+    monthly: "69.99",
     annualMonthly: "55.20",
     annualTotal: "662.40",
     anchored: false,
@@ -100,7 +105,7 @@ export const PLANS = [
     id: "pro",
     name: "Pro",
     forWho: "The pro running flat-out who wants every edge.",
-    monthly: "120",
+    monthly: "119.99",
     annualMonthly: "96",
     annualTotal: "1,152",
     anchored: true,
@@ -117,16 +122,16 @@ export const PLANS = [
     id: "team",
     name: "Team",
     forWho: "The crew owner who wants every tech certain, the first time.",
-    monthly: "260",
+    monthly: "259.99",
     annualMonthly: "208",
     annualTotal: "2,496",
     unit: "base 3 seats",
-    extraSeat: "$89/mo per extra seat",
+    extraSeat: "$89.99/mo per extra seat",
     anchored: false,
     valueLine: "Every tech on the crew gets the certain answer the first time.",
     features: [
       "Everything in Pro, for the whole crew",
-      "Includes 3 seats — add more anytime at $89/mo each",
+      "Includes 3 seats — add more anytime at $89.99/mo each",
       "Shared templates: consistent quotes & reports company-wide",
       "Searchable job history across the crew",
       "Owner oversight across every tech",
