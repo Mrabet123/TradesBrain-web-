@@ -4,8 +4,9 @@ import Section from "@/components/Section.astro";
 import Icon from "@/components/Icon.astro";
 import FinalCTA from "@/components/FinalCTA.astro";
 import FoundingRepForm from "@/components/react/FoundingRepForm.tsx";
+import EarlyAdopterForm from "@/components/react/EarlyAdopterForm.tsx";
 import EarlyAdopterCounter from "@/components/react/EarlyAdopterCounter.tsx";
-import { CONTACT, EARLY_ADOPTER, STORE_LINKS, FORM_API } from "@/data/site";
+import { CONTACT, EARLY_ADOPTER, SUPABASE, FORM_API } from "@/data/site";
 
 const repPerks = [
   {
@@ -22,6 +23,46 @@ const repPerks = [
     icon: "user",
     title: "Your name, your standing",
     body: "You're respected in your trade and your state. Reps are the same-tribe proof other pros trust before they download.",
+  },
+];
+
+/**
+ * Offer 1 only — the full value of the Founding Rep package.
+ * Copy is locked and trade-agnostic ("every pro you refer", not "plumber").
+ * The $69.99 / $10.50 / $209.97 / $524.92 figures are exact and the $69.99 is
+ * an EXAMPLE only. Commission is 15%, up to 12 months, only while the referred
+ * subscription stays active and renewing. No "for life / forever / lifetime".
+ */
+const repBenefits = [
+  {
+    icon: "shield",
+    title: "Free TradesBrain Access — While You're an Active Rep",
+    body: "Unlimited access to every TradesBrain feature and every plan tier, at no cost, for as long as you remain an active Founding Rep contributing to our growth. Rex is yours on every job.",
+  },
+  {
+    icon: "dollar",
+    title: "15% Recurring Commission — Up to 12 Months",
+    body: "For every pro you refer who subscribes, you earn 15% of their monthly plan for as long as that subscription stays active and renewing — up to 12 months. Example: on a $69.99/mo plan that's $10.50 per subscriber per month — a pipeline of 20 active subscribers earns $209.97/mo recurring; 50 earns $524.92/mo recurring.",
+  },
+  {
+    icon: "user",
+    title: "Founding Rep Status — Named and Recognised",
+    body: "You're listed on the TradesBrain website as a Founding Rep — your name, your state, your years in the trade. A real credibility signal in your local trade community: you helped build something real.",
+  },
+  {
+    icon: "bolt",
+    title: "Direct Product Influence",
+    body: "Your feedback goes straight to the founder and the development team. Rex learns from your real job-site experience, and the gaps you identify get prioritised. You're not a user — you're a co-creator.",
+  },
+  {
+    icon: "compass",
+    title: "First Access to Everything New",
+    body: "Every new Rex capability, every feature, every update — you get it before anyone else. You test it, you give feedback, and it ships better because of your input.",
+  },
+  {
+    icon: "wrench",
+    title: "TradesBrain Branded Gear",
+    body: "Branded workwear and materials that make you visible as a TradesBrain Rep on job sites and in your community.",
   },
 ];
 
@@ -87,8 +128,40 @@ const whyNow = [
       to active contribution — not a lifetime grant.
     </div>
 
+    <!-- what you get (full value of the Rep package) -->
+    <div class="mx-auto mt-16 max-w-5xl">
+      <div class="mx-auto max-w-3xl text-center">
+        <h3 class="text-2xl sm:text-3xl">What you get as a Founding Rep</h3>
+        <p class="mt-4 text-lg text-body">
+          The Founding Rep package is built to be genuinely valuable — not a
+          favour you do us, but a real opportunity that rewards your expertise
+          and your network.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {
+          repBenefits.map((b) => (
+            <div class="flex gap-4 rounded-[var(--radius-card)] border border-navy/10 bg-white p-6 shadow-[var(--shadow-card)] sm:p-7">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy text-white">
+                <Icon name={b.icon as any} />
+              </span>
+              <div>
+                <h4 class="text-base font-bold leading-snug text-navy sm:text-lg">
+                  {b.title}
+                </h4>
+                <p class="mt-2 text-sm leading-relaxed text-body sm:text-base">
+                  {b.body}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
     <!-- application -->
-    <div class="mx-auto mt-12 max-w-3xl">
+    <div class="mx-auto mt-16 max-w-3xl">
       <h3 class="text-center text-2xl">Become a Founding Rep</h3>
       <p class="mx-auto mt-2 max-w-xl text-center text-body">
         Criteria: licensed, experienced, and well-connected in your trade and
@@ -131,16 +204,10 @@ const whyNow = [
         </ul>
         <div class="mt-8 flex flex-wrap gap-3">
           <a
-            href={STORE_LINKS.appStore}
+            href="#early-adopter-form"
             class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-navy transition hover:-translate-y-0.5"
           >
             Get the early-adopter offer
-          </a>
-          <a
-            href="/download"
-            class="inline-flex items-center justify-center rounded-xl border-2 border-white/30 px-6 py-3 text-base font-semibold text-white transition hover:border-white"
-          >
-            How to download
           </a>
         </div>
       </div>
@@ -148,13 +215,24 @@ const whyNow = [
         <EarlyAdopterCounter
           client:visible
           total={EARLY_ADOPTER.totalSpots}
-          claimed={EARLY_ADOPTER.spotsClaimed}
           offer={EARLY_ADOPTER.offer}
+          supabaseUrl={SUPABASE.url}
+          anonKey={SUPABASE.anonKey}
         />
         <p class="mt-3 text-center text-xs text-white/50">
           The counter is real — we never fake the number.
         </p>
       </div>
+    </div>
+
+    <!-- early adopter signup -->
+    <div id="early-adopter-form" class="mx-auto mt-12 max-w-2xl scroll-mt-24">
+      <EarlyAdopterForm
+        client:visible
+        supabaseUrl={SUPABASE.url}
+        anonKey={SUPABASE.anonKey}
+        source="founding-rep/offer-2"
+      />
     </div>
   </Section>
 

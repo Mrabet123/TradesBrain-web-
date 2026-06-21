@@ -56,7 +56,12 @@ const justify = align === "center" ? "justify-center" : "justify-start";
 </div>
 {
   !live && (
-    <p class={`mt-2 text-xs text-body/70 ${align === "center" ? "text-center" : ""}`}>
+    <p
+      class:list={[
+        "mt-5 rounded-xl border border-blue/30 bg-tint px-5 py-3.5 text-sm font-semibold leading-relaxed text-navy sm:text-base",
+        align === "center" ? "mx-auto max-w-md text-center" : "max-w-md",
+      ]}
+    >
       App launching soon — links go live the moment the apps are approved.
     </p>
   )

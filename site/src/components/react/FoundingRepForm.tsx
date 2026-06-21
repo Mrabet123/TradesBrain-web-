@@ -130,7 +130,7 @@ export default function FoundingRepForm({ to, endpoint, anonKey }: Props) {
         </div>
         <div>
           <label className={label} htmlFor="vat">VAT number</label>
-          <input id="vat" name="vat" className={field} placeholder="If applicable" />
+          <input id="vat" name="vat" required className={field} placeholder="e.g. GB123456789" />
         </div>
         <div>
           <label className={label} htmlFor="trade">Your trade</label>
@@ -153,7 +153,7 @@ export default function FoundingRepForm({ to, endpoint, anonKey }: Props) {
         <label className={label} htmlFor="about">
           Why you'd put your name behind TradesBrain
         </label>
-        <textarea id="about" name="about" rows={4} className={field} placeholder="Tell us about your standing in your trade and your network." />
+        <textarea id="about" name="about" rows={4} required className={field} placeholder="Tell us about your standing in your trade and your network." />
       </div>
 
       {/* Honeypot — hidden from real users, catches bots. */}

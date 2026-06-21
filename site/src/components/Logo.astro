@@ -13,36 +13,59 @@ interface Props {
   class?: string;
   /** Render light (for dark backgrounds). */
   light?: boolean;
+  /**
+   * Use the full brand lockup image — compass + "TradesBrain" + the
+   * "AI CO-PILOT FOR THE TRADES" tagline. Used in the nav so the full
+   * concept (mark + wordmark + tagline) is present. `size` sets its height.
+   */
+  lockup?: boolean;
 }
 const {
   withWordmark = true,
   size = 36,
   class: className = "",
   light = false,
+  lockup = false,
 } = Astro.props;
 
 const navy = light ? "#FFFFFF" : "#1E3A5F";
 const blue = "#2E75B6";
 ---
 
-<span class={`inline-flex items-center gap-2.5 ${className}`}>
-  <img
-    src="/assets/brand/rex-compass.png"
-    width={size}
-    height={size}
-    style={`height:${size}px;width:${size}px`}
-    alt={withWordmark ? "" : "TradesBrain"}
-    loading="eager"
-    decoding="async"
-  />
-  {
-    withWordmark && (
-      <span
-        class="text-[1.3rem] font-extrabold tracking-tight leading-none"
-        style={`color:${navy}`}
-      >
-        Trades<span style={`color:${blue}`}>Brain</span>
-      </span>
-    )
-  }
-</span>
+{
+  lockup ? (
+    /* Full brand lockup (compass + wordmark + "AI CO-PILOT FOR THE TRADES").
+       Transparent master on light surfaces; navy-ground variant on dark
+       surfaces (its background is the same navy as the footer, so it sits
+       seamlessly while keeping the white wordmark legible). */
+    <img
+      src={light ? "/assets/brand/logo-lockup-navy.png" : "/assets/brand/logo-lockup-full.png"}
+      height={size}
+      style={`height:${size}px;width:auto`}
+      alt="TradesBrain — AI co-pilot for the trades"
+      class={className}
+      loading="eager"
+      decoding="async"
+    />
+  ) : (
+    <span class={`inline-flex items-center gap-2.5 ${className}`}>
+      <img
+        src="/assets/brand/rex-compass.png"
+        width={size}
+        height={size}
+        style={`height:${size}px;width:${size}px`}
+        alt={withWordmark ? "" : "TradesBrain"}
+        loading="eager"
+        decoding="async"
+      />
+      {withWordmark && (
+        <span
+          class="text-[1.3rem] font-extrabold tracking-tight leading-none"
+          style={`color:${navy}`}
+        >
+          Trades<span style={`color:${blue}`}>Brain</span>
+        </span>
+      )}
+    </span>
+  )
+}

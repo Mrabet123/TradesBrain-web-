@@ -44,6 +44,18 @@ export const FORM_API = {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1dmNwYXJ6cHVyd3drcnhwaWtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMTc1NjAsImV4cCI6MjA5Mzc5MzU2MH0.2elPy01MVdv-tvWw1u88TATgxN3WYvDxmO9amLN6MQU",
 };
 
+/**
+ * Supabase project for the marketing site's own capture tables.
+ * Used by the Early Adopter form (insert into `early_adopters`) and the
+ * live remaining-spots counter (RPC `early_adopter_count`). The anon key is
+ * a public client credential by design; RLS gates what it can do (insert
+ * only — it can't read anyone's email back).
+ */
+export const SUPABASE = {
+  url: "https://quvcparzpurwwkrxpiki.supabase.co",
+  anonKey: FORM_API.anonKey,
+};
+
 export const STORE_LINKS = {
   // Placeholders until the apps are live (Build Playbook §4 + Workflow Guide Prompt 6).
   appStore: "#", // TODO: paste the App Store listing URL once live.
@@ -52,12 +64,12 @@ export const STORE_LINKS = {
 
 /**
  * Early-adopter offer — the counter is REAL, never faked
- * (Neuromarketing Playbook §6: no fake scarcity).
- * Wire `spotsClaimed` to the real signup count when the backend exists.
+ * (Neuromarketing Playbook §6: no fake scarcity). The remaining-spots count
+ * is read live from Supabase (`early_adopter_count` RPC over the
+ * `early_adopters` table) by EarlyAdopterCounter — nothing to hardcode.
  */
 export const EARLY_ADOPTER = {
   totalSpots: 200,
-  spotsClaimed: 0, // TODO: wire to the real signup count. Keep honest.
   offer: "30% off for three months",
 };
 

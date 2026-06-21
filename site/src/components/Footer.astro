@@ -13,7 +13,7 @@ const legal = [
 <footer class="bg-navy text-white/80">
   <div class="container-tb grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
     <div>
-      <Logo size={34} light={true} />
+      <Logo lockup light={true} size={52} class="h-[52px] w-auto" />
       <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
         {SITE.spine} That's Rex — a master-level co-pilot in your pocket,
         built with real tradespeople.
@@ -25,7 +25,9 @@ const legal = [
       <ul class="mt-4 space-y-2.5 text-sm">
         <li><a class="transition hover:text-white" href="/">Home</a></li>
         {
-          NAV.map((item) => (
+          /* Support lives once, in the Company column below — keep it out
+             of Explore so it isn't duplicated in the footer. */
+          NAV.filter((item) => item.href !== "/support").map((item) => (
             <li>
               <a class="transition hover:text-white" href={item.href}>
                 {item.label}
@@ -49,11 +51,6 @@ const legal = [
             </li>
           ))
         }
-        <li>
-          <a class="transition hover:text-white" href={`mailto:${CONTACT.support}`}>
-            {CONTACT.support}
-          </a>
-        </li>
       </ul>
     </div>
   </div>
