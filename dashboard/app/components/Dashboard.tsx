@@ -107,7 +107,7 @@ function Count({ n }: { n: number }) {
 function Banner({ tone, children }: { tone: "amber" | "red"; children: React.ReactNode }) {
   const cls =
     tone === "amber"
-      ? "border-amber-300 bg-amber-50 text-amber-900"
+      ? "border-amber/40 bg-amber/10 text-amber"
       : "border-red-300 bg-red-50 text-red-900";
   return <div className={`mb-5 rounded-xl border px-4 py-3 text-sm ${cls}`}>{children}</div>;
 }

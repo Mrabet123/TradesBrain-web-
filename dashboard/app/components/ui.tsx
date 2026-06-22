@@ -93,7 +93,7 @@ export function Badge({
   const tones: Record<string, string> = {
     slate: "bg-slate-100 text-slate-600",
     green: "bg-emerald-100 text-emerald-700",
-    amber: "bg-amber-100 text-amber-800",
+    amber: "bg-amber/15 text-amber",
     blue: "bg-blue/10 text-blue-600",
   };
   return (
