@@ -2,9 +2,22 @@
 /**
  * RexSessionDemo — an app-realistic phone mockup that walks ONE real job
  * (a kitchen-sink P-trap drain leak) through all five Rex session stages.
- * Built to match the homepage Rex demo (PhoneMockup.astro): same phone frame,
- * status bar, "Rex" header, chat bubbles, and the animated Rex compass as
- * Rex's avatar / thinking indicator.
+ *
+ * STEPPED CAROUSEL: the five stages are five SEPARATE screens, shown one at
+ * a time. A Next/Back control + a "1 of 5" progress indicator step through
+ * them with a smooth transition. Every screen shows its stage subtitle at
+ * the top, then that stage's content (all copy is unchanged from the script
+ * — only the layout/interaction changed).
+ *
+ * REX COMPASS — DEV PLACES THE REAL ASSET:
+ *   The spots marked `REX COMPASS SPOT` below are where Rex's animated
+ *   compass goes (avatar + the "thinking" indicator on the Diagnosis
+ *   screen). The in-motion compass from the motion design system (Google
+ *   Drive — the same animated compass the app uses) is placed here by the
+ *   developer. This component does NOT build or guess the compass; it only
+ *   holds the correctly-positioned, clearly-marked spot. The thinking
+ *   indicator currently uses the shipped Rex_Thinking_Loop.json so the spot
+ *   is visible and positioned — swap in the canonical asset as needed.
  */
 import LottiePlayer from "./react/LottiePlayer.tsx";
 import Icon from "./Icon.astro";
@@ -18,7 +31,7 @@ const stages = [
 ];
 ---
 
-<div class="relative mx-auto w-[300px] sm:w-[320px]">
+<div class="relative mx-auto w-[300px] sm:w-[320px]" data-rex-demo>
   <!-- glow -->
   <div
     class="absolute -inset-6 -z-10 rounded-[3rem] bg-blue/20 blur-3xl"
@@ -39,6 +52,7 @@ const stages = [
 
     <!-- app header -->
     <div class="flex items-center gap-2.5 border-b border-navy/5 bg-white px-4 py-2.5">
+      <!-- REX COMPASS SPOT · Rex avatar -->
       <span class="grid h-8 w-8 place-items-center rounded-full bg-navy text-blue">
         <Icon name="compass" size={18} />
       </span>
@@ -48,219 +62,336 @@ const stages = [
       </div>
     </div>
 
-    <div class="space-y-3 bg-tint px-3.5 py-4">
-      <!-- STAGE 1 — Context Capture -->
-      <div class="flex items-center justify-center">
-        <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
-          >Stage 1 · {stages[0]}</span
-        >
-      </div>
-
-      <!-- rex: context questions -->
-      <div class="flex items-end gap-1.5">
-        <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
-          <Icon name="compass" size={15} />
-        </span>
-        <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
-          <p class="text-sm leading-snug text-navy">
-            Quick context so I get this right: residential, light commercial, or
-            industrial? What state? Roughly how old is the system? And on
-            plumbing — municipal or well, pipe material, and is this potable,
-            drain-waste-vent, or gas?
-          </p>
+    <!-- screen viewport — one stage screen at a time -->
+    <div class="relative min-h-[460px] bg-tint">
+      <!-- SCREEN 1 — Stage 1 · Context Capture -->
+      <div class="tb-screen space-y-3 px-3.5 py-4" data-screen="0">
+        <div class="flex items-center justify-center">
+          <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
+            >Stage 1 · {stages[0]}</span
+          >
         </div>
-      </div>
 
-      <!-- worker: answer -->
-      <div class="ml-auto max-w-[82%] rounded-2xl rounded-br-sm bg-navy px-3.5 py-2.5 text-white">
-        <p class="text-sm leading-snug">
-          Residential, Ohio, ~30 years old. Municipal, PVC, kitchen sink DWV.
-        </p>
-      </div>
-
-      <!-- STAGE 2 — Problem Identification -->
-      <div class="flex items-center justify-center pt-1">
-        <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
-          >Stage 2 · {stages[1]}</span
-        >
-      </div>
-
-      <!-- worker: photo + voice note -->
-      <div class="ml-auto max-w-[82%] rounded-2xl rounded-br-sm bg-navy px-2.5 pb-2.5 pt-2.5 text-white">
-        <div class="mb-2 overflow-hidden rounded-xl">
-          <div class="flex aspect-[4/3] flex-col items-center justify-center gap-1 bg-gradient-to-br from-navy-900 to-blue/40 text-white/70">
-            <Icon name="camera" size={22} />
-            <span class="text-[0.6rem] font-semibold">Photo · under-sink leak</span>
-          </div>
-        </div>
-        <p class="flex items-center gap-1.5 text-sm leading-snug">
-          <Icon name="mic" size={13} /> Water pooling under the kitchen sink — looks
-          like it's from the trap.
-        </p>
-      </div>
-
-      <!-- rex: assessment -->
-      <div class="flex items-end gap-1.5">
-        <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
-          <Icon name="compass" size={15} />
-        </span>
-        <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
-          <p class="text-sm leading-snug text-navy">
-            From the photo, the leak is at the slip-joint between the P-trap and
-            the trap arm — staining and active moisture at that joint, not the
-            tailpiece above. That's a slow joint leak, not an overflow.
-          </p>
-        </div>
-      </div>
-
-      <!-- STAGE 3 — Diagnosis -->
-      <div class="flex items-center justify-center pt-1">
-        <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
-          >Stage 3 · {stages[2]}</span
-        >
-      </div>
-
-      <!-- rex thinking — animated compass -->
-      <div class="flex items-center gap-2">
-        <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white shadow-sm">
-          <LottiePlayer
-            client:visible
-            src="/assets/motion/Rex_Thinking_Loop.json"
-            className="h-5 w-5"
-            ariaLabel="Rex thinking"
-          />
-        </span>
-        <span class="text-[0.7rem] font-semibold text-body">Rex is putting it together…</span>
-      </div>
-
-      <!-- structured diagnosis card -->
-      <div class="mr-auto w-full max-w-[92%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-3 shadow-sm">
-        <p class="mb-2 text-[0.6rem] font-bold uppercase tracking-wide text-blue">
-          Diagnosis
-        </p>
-        <dl class="space-y-1.5 text-[0.78rem] leading-snug">
-          <div>
-            <dt class="inline font-bold text-navy">Diagnosis: </dt>
-            <dd class="inline text-body">Failed slip-joint seal at the P-trap / trap-arm connection.</dd>
-          </div>
-          <div>
-            <dt class="inline font-bold text-navy">Issue: </dt>
-            <dd class="inline text-body">The slip washer has lost its seal — it weeps under normal flow.</dd>
-          </div>
-          <div>
-            <dt class="inline font-bold text-navy">Cause: </dt>
-            <dd class="inline text-body">Aged/compressed or over-tightened slip washer. Not a pipe failure.</dd>
-          </div>
-          <div>
-            <dt class="inline font-bold text-navy">Solution: </dt>
-            <dd class="inline text-body">
-              Replace the slip washer, re-seat hand-tight plus a quarter turn.
-              Alternative: replace the trap assembly if it's brittle or
-              discolored.
-            </dd>
-          </div>
-        </dl>
-        <div class="mt-2 flex items-center gap-1.5 rounded-lg bg-tint px-2 py-1.5 text-[0.7rem] font-semibold text-blue">
-          <Icon name="doc" size={14} /> IPC 2021 §1002 · trap seal &amp; trap-arm
-        </div>
-        <p class="mt-2 text-[0.68rem] leading-snug text-body/80">
-          Verify current adoption in your jurisdiction — local amendments may
-          apply.
-        </p>
-      </div>
-
-      <!-- rex: confirm before moving on -->
-      <div class="flex items-end gap-1.5">
-        <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
-          <Icon name="compass" size={15} />
-        </span>
-        <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
-          <p class="text-sm leading-snug text-navy">
-            Want me to walk you through the fix, step by step?
-          </p>
-        </div>
-      </div>
-
-      <!-- STAGE 4 — Step-by-Step Guidance -->
-      <div class="flex items-center justify-center pt-1">
-        <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
-          >Stage 4 · {stages[3]}</span
-        >
-      </div>
-
-      <!-- rex: step 1 -->
-      <div class="flex items-end gap-1.5">
-        <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
-          <Icon name="compass" size={15} />
-        </span>
-        <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
-          <p class="text-sm leading-snug text-navy">
-            Step 1: clear the cabinet, pan under the trap, disconnect the slip
-            nuts. Send me a photo of the removed washer.
-          </p>
-        </div>
-      </div>
-
-      <!-- worker: removed-washer photo -->
-      <div class="ml-auto max-w-[82%] rounded-2xl rounded-br-sm bg-navy px-2.5 pb-1 pt-2.5 text-white">
-        <div class="overflow-hidden rounded-xl">
-          <div class="flex aspect-[4/3] flex-col items-center justify-center gap-1 bg-gradient-to-br from-navy-900 to-blue/40 text-white/70">
-            <Icon name="camera" size={22} />
-            <span class="text-[0.6rem] font-semibold">Photo · removed washer</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- rex: assess + next step -->
-      <div class="flex items-end gap-1.5">
-        <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
-          <Icon name="compass" size={15} />
-        </span>
-        <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
-          <p class="text-sm leading-snug text-navy">
-            That washer's compressed and grooved — there's your leak. Step 2:
-            seat the new washer, hand-tight plus a quarter turn. No
-            over-torquing.
-          </p>
-        </div>
-      </div>
-
-      <!-- STAGE 5 — Completion -->
-      <div class="flex items-center justify-center pt-1">
-        <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
-          >Stage 5 · {stages[4]}</span
-        >
-      </div>
-
-      <!-- rex: final test -->
-      <div class="flex items-end gap-1.5">
-        <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
-          <Icon name="compass" size={15} />
-        </span>
-        <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
-          <p class="text-sm leading-snug text-navy">
-            Run the tap 30 seconds, fill and release the basin for a full-load
-            test, dry the joint and check for weep. Confirm the trap arm still
-            slopes 1/4 inch per foot. Dry under load? You're done.
-          </p>
-        </div>
-      </div>
-
-      <!-- job-close action -->
-      <div class="mr-auto ml-9 w-[85%] rounded-xl border border-blue/20 bg-white px-3.5 py-3 shadow-sm">
-        <div class="flex items-center gap-2 text-navy">
-          <span class="grid h-7 w-7 place-items-center rounded-lg bg-success/15 text-success">
-            <Icon name="check" size={16} />
+        <!-- rex: context questions -->
+        <div class="flex items-end gap-1.5">
+          <!-- REX COMPASS SPOT · Rex avatar -->
+          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
+            <Icon name="compass" size={15} />
           </span>
-          <p class="text-sm font-extrabold">Job closed</p>
+          <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
+            <p class="text-sm leading-snug text-navy">
+              Quick context so I get this right: residential, light commercial, or
+              industrial? What state? Roughly how old is the system? And on
+              plumbing — municipal or well, pipe material, and is this potable,
+              drain-waste-vent, or gas?
+            </p>
+          </div>
         </div>
-        <button
-          type="button"
-          class="mt-2.5 flex w-full items-center justify-center gap-1.5 rounded-lg bg-navy px-3 py-2 text-[0.78rem] font-bold text-white"
-        >
-          <Icon name="doc" size={14} /> Generate report &amp; quote
-        </button>
+
+        <!-- worker: answer -->
+        <div class="ml-auto max-w-[82%] rounded-2xl rounded-br-sm bg-navy px-3.5 py-2.5 text-white">
+          <p class="text-sm leading-snug">
+            Residential, Ohio, ~30 years old. Municipal, PVC, kitchen sink DWV.
+          </p>
+        </div>
       </div>
+
+      <!-- SCREEN 2 — Stage 2 · Problem Identification -->
+      <div class="tb-screen hidden space-y-3 px-3.5 py-4" data-screen="1">
+        <div class="flex items-center justify-center">
+          <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
+            >Stage 2 · {stages[1]}</span
+          >
+        </div>
+
+        <!-- worker: photo + voice note -->
+        <div class="ml-auto max-w-[82%] rounded-2xl rounded-br-sm bg-navy px-2.5 pb-2.5 pt-2.5 text-white">
+          <div class="mb-2 overflow-hidden rounded-xl">
+            <div class="flex aspect-[4/3] flex-col items-center justify-center gap-1 bg-gradient-to-br from-navy-900 to-blue/40 text-white/70">
+              <Icon name="camera" size={22} />
+              <span class="text-[0.6rem] font-semibold">Photo · under-sink leak</span>
+            </div>
+          </div>
+          <p class="flex items-center gap-1.5 text-sm leading-snug">
+            <Icon name="mic" size={13} /> Water pooling under the kitchen sink — looks
+            like it's from the trap.
+          </p>
+        </div>
+
+        <!-- rex: assessment -->
+        <div class="flex items-end gap-1.5">
+          <!-- REX COMPASS SPOT · Rex avatar -->
+          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
+            <Icon name="compass" size={15} />
+          </span>
+          <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
+            <p class="text-sm leading-snug text-navy">
+              From the photo, the leak is at the slip-joint between the P-trap and
+              the trap arm — staining and active moisture at that joint, not the
+              tailpiece above. That's a slow joint leak, not an overflow.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 3 — Stage 3 · Diagnosis -->
+      <div class="tb-screen hidden space-y-3 px-3.5 py-4" data-screen="2">
+        <div class="flex items-center justify-center">
+          <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
+            >Stage 3 · {stages[2]}</span
+          >
+        </div>
+
+        <!-- rex thinking — REX COMPASS SPOT · animated "thinking" indicator -->
+        <div class="flex items-center gap-2">
+          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white shadow-sm">
+            <LottiePlayer
+              client:visible
+              src="/assets/motion/Rex_Thinking_Loop.json"
+              className="h-5 w-5"
+              ariaLabel="Rex thinking"
+            />
+          </span>
+          <span class="text-[0.7rem] font-semibold text-body">Rex is putting it together…</span>
+        </div>
+
+        <!-- structured diagnosis card -->
+        <div class="mr-auto w-full max-w-[92%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-3 shadow-sm">
+          <p class="mb-2 text-[0.6rem] font-bold uppercase tracking-wide text-blue">
+            Diagnosis
+          </p>
+          <dl class="space-y-1.5 text-[0.78rem] leading-snug">
+            <div>
+              <dt class="inline font-bold text-navy">Diagnosis: </dt>
+              <dd class="inline text-body">Failed slip-joint seal at the P-trap / trap-arm connection.</dd>
+            </div>
+            <div>
+              <dt class="inline font-bold text-navy">Issue: </dt>
+              <dd class="inline text-body">The slip washer has lost its seal — it weeps under normal flow.</dd>
+            </div>
+            <div>
+              <dt class="inline font-bold text-navy">Cause: </dt>
+              <dd class="inline text-body">Aged/compressed or over-tightened slip washer. Not a pipe failure.</dd>
+            </div>
+            <div>
+              <dt class="inline font-bold text-navy">Solution: </dt>
+              <dd class="inline text-body">
+                Replace the slip washer, re-seat hand-tight plus a quarter turn.
+                Alternative: replace the trap assembly if it's brittle or
+                discolored.
+              </dd>
+            </div>
+          </dl>
+          <div class="mt-2 flex items-center gap-1.5 rounded-lg bg-tint px-2 py-1.5 text-[0.7rem] font-semibold text-blue">
+            <Icon name="doc" size={14} /> IPC 2021 §1002 · trap seal &amp; trap-arm
+          </div>
+          <p class="mt-2 text-[0.68rem] leading-snug text-body/80">
+            Verify current adoption in your jurisdiction — local amendments may
+            apply.
+          </p>
+        </div>
+
+        <!-- rex: confirm before moving on -->
+        <div class="flex items-end gap-1.5">
+          <!-- REX COMPASS SPOT · Rex avatar -->
+          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
+            <Icon name="compass" size={15} />
+          </span>
+          <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
+            <p class="text-sm leading-snug text-navy">
+              Want me to walk you through the fix, step by step?
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 4 — Stage 4 · Step-by-Step Guidance -->
+      <div class="tb-screen hidden space-y-3 px-3.5 py-4" data-screen="3">
+        <div class="flex items-center justify-center">
+          <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
+            >Stage 4 · {stages[3]}</span
+          >
+        </div>
+
+        <!-- rex: step 1 -->
+        <div class="flex items-end gap-1.5">
+          <!-- REX COMPASS SPOT · Rex avatar -->
+          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
+            <Icon name="compass" size={15} />
+          </span>
+          <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
+            <p class="text-sm leading-snug text-navy">
+              Step 1: clear the cabinet, pan under the trap, disconnect the slip
+              nuts. Send me a photo of the removed washer.
+            </p>
+          </div>
+        </div>
+
+        <!-- worker: removed-washer photo -->
+        <div class="ml-auto max-w-[82%] rounded-2xl rounded-br-sm bg-navy px-2.5 pb-1 pt-2.5 text-white">
+          <div class="overflow-hidden rounded-xl">
+            <div class="flex aspect-[4/3] flex-col items-center justify-center gap-1 bg-gradient-to-br from-navy-900 to-blue/40 text-white/70">
+              <Icon name="camera" size={22} />
+              <span class="text-[0.6rem] font-semibold">Photo · removed washer</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- rex: assess + next step -->
+        <div class="flex items-end gap-1.5">
+          <!-- REX COMPASS SPOT · Rex avatar -->
+          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
+            <Icon name="compass" size={15} />
+          </span>
+          <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
+            <p class="text-sm leading-snug text-navy">
+              That washer's compressed and grooved — there's your leak. Step 2:
+              seat the new washer, hand-tight plus a quarter turn. No
+              over-torquing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 5 — Stage 5 · Completion -->
+      <div class="tb-screen hidden space-y-3 px-3.5 py-4" data-screen="4">
+        <div class="flex items-center justify-center">
+          <span class="rounded-full bg-navy/5 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-navy/60"
+            >Stage 5 · {stages[4]}</span
+          >
+        </div>
+
+        <!-- rex: final test -->
+        <div class="flex items-end gap-1.5">
+          <!-- REX COMPASS SPOT · Rex avatar -->
+          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-blue">
+            <Icon name="compass" size={15} />
+          </span>
+          <div class="mr-auto max-w-[85%] rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 shadow-sm">
+            <p class="text-sm leading-snug text-navy">
+              Run the tap 30 seconds, fill and release the basin for a full-load
+              test, dry the joint and check for weep. Confirm the trap arm still
+              slopes 1/4 inch per foot. Dry under load? You're done.
+            </p>
+          </div>
+        </div>
+
+        <!-- job-close action -->
+        <div class="mr-auto ml-9 w-[85%] rounded-xl border border-blue/20 bg-white px-3.5 py-3 shadow-sm">
+          <div class="flex items-center gap-2 text-navy">
+            <span class="grid h-7 w-7 place-items-center rounded-lg bg-success/15 text-success">
+              <Icon name="check" size={16} />
+            </span>
+            <p class="text-sm font-extrabold">Job closed</p>
+          </div>
+          <button
+            type="button"
+            class="mt-2.5 flex w-full items-center justify-center gap-1.5 rounded-lg bg-navy px-3 py-2 text-[0.78rem] font-bold text-white"
+          >
+            <Icon name="doc" size={14} /> Generate report &amp; quote
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- stepped-carousel controls: Back · progress · Next -->
+    <div class="flex items-center justify-between gap-3 border-t border-navy/10 bg-white px-4 py-3">
+      <button
+        type="button"
+        data-prev
+        aria-label="Previous stage"
+        class="inline-flex items-center gap-1 rounded-lg border-2 border-navy/15 px-3 py-1.5 text-xs font-bold text-navy transition hover:border-navy hover:bg-tint disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+        Back
+      </button>
+
+      <div class="flex flex-col items-center gap-1">
+        <span class="text-[0.7rem] font-bold text-body" data-counter>1 of 5</span>
+        <div class="flex items-center gap-1.5">
+          <span class="tb-dot h-1.5 w-1.5 rounded-full bg-blue" data-dot></span>
+          <span class="tb-dot h-1.5 w-1.5 rounded-full bg-navy/15" data-dot></span>
+          <span class="tb-dot h-1.5 w-1.5 rounded-full bg-navy/15" data-dot></span>
+          <span class="tb-dot h-1.5 w-1.5 rounded-full bg-navy/15" data-dot></span>
+          <span class="tb-dot h-1.5 w-1.5 rounded-full bg-navy/15" data-dot></span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        data-next
+        aria-label="Next stage"
+        class="inline-flex items-center gap-1 rounded-lg bg-navy px-3 py-1.5 text-xs font-bold text-white transition hover:bg-navy-900 disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        Next
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+      </button>
     </div>
   </div>
 </div>
+
+<style>
+  /* smooth, pleasant transition as each screen enters */
+  .tb-anim {
+    animation: tb-screen-in 0.32s ease-out;
+  }
+  @keyframes tb-screen-in {
+    from {
+      opacity: 0;
+      transform: translateX(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-rex-demo]").forEach((root) => {
+    const screens = Array.from(root.querySelectorAll<HTMLElement>("[data-screen]"));
+    const dots = Array.from(root.querySelectorAll<HTMLElement>("[data-dot]"));
+    const counter = root.querySelector<HTMLElement>("[data-counter]");
+    const prev = root.querySelector<HTMLButtonElement>("[data-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-next]");
+    if (!screens.length || !prev || !next) return;
+
+    const total = screens.length;
+    let i = 0;
+
+    const render = (animate: boolean) => {
+      screens.forEach((s, idx) => {
+        const active = idx === i;
+        s.classList.toggle("hidden", !active);
+        s.classList.remove("tb-anim");
+        if (active && animate) {
+          // restart the enter animation
+          void s.offsetWidth;
+          s.classList.add("tb-anim");
+        }
+      });
+      dots.forEach((d, idx) => {
+        d.classList.toggle("bg-blue", idx === i);
+        d.classList.toggle("bg-navy/15", idx !== i);
+      });
+      if (counter) counter.textContent = `${i + 1} of ${total}`;
+      prev.disabled = i === 0;
+      next.disabled = i === total - 1;
+    };
+
+    prev.addEventListener("click", () => {
+      if (i > 0) {
+        i--;
+        render(true);
+      }
+    });
+    next.addEventListener("click", () => {
+      if (i < total - 1) {
+        i++;
+        render(true);
+      }
+    });
+
+    render(false);
+  });
+</script>

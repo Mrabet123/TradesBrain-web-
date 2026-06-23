@@ -75,7 +75,7 @@ export const EARLY_ADOPTER = {
 
 /**
  * Pricing — three plans, Pro anchored as the natural choice
- * (Spec Page 3 + Messaging Bank §10).
+ * (Spec Page 3 + Messaging Bank §10 + PricingCards Rework v2).
  *
  * Figures follow TradesBrain_UnifiedPricing_v1.xlsx (the single source of
  * truth across iOS, Android and web). The alignment rule:
@@ -84,26 +84,36 @@ export const EARLY_ADOPTER = {
  *   • ANNUAL prices stay at their real values on Android/Stripe/Web
  *     (not Apple-tier-constrained).
  *
- *   Solo  — $69.99/mo · $662.40/yr  (= $55.20/mo)
- *   Pro   — $119.99/mo · $1,152/yr  (= $96/mo)
- *   Team  — $259.99/mo · $2,496/yr  (= $208/mo) for a base of 3 seats,
- *           plus $89.99/mo ($854.40/yr) per additional seat.
+ *   Solo  — $69.99/mo · $714.00/yr  (= $59.50/mo · save 15% · $125.88/yr)
+ *   Pro   — $119.99/mo · $1,152.00/yr (= $96.00/mo · save 20% · $287.88/yr)
+ *   Team  — $259.99/mo · $2,496.00/yr (= $208.00/mo · save 20% · $623.88/yr)
+ *           for a base of 3 seats, plus the Extra Seat add-on:
+ *           $89.99/mo · $863.90/yr (= $71.99/mo · save 20% · $215.98/yr).
+ *
  * The monthly-equivalent on annual is a display-only calculation — the
  * actual annual charge is the full yearly amount billed once.
  *
- * `monthly` / `annualMonthly` / `annualTotal` are display strings so the
- * cents ($55.20) render exactly. The trial (10 free questions) is managed
- * in-app, never via Stripe.
+ * The pricing rule: real prices everywhere, never approximate. Each value
+ * is a display string so the cents render exactly. The Monthly/Annual
+ * toggle (PricingCards.astro) flips every card to the matching `monthly`
+ * or `annual` block; the savings badge is the hero of the annual view.
+ * The trial (10 free questions) is managed in-app, never via Stripe.
  */
 export const PLANS = [
   {
     id: "solo",
     name: "Solo",
     forWho: "The solo pro who owns the job and the name on it.",
-    monthly: "69.99",
-    annualMonthly: "55.20",
-    annualTotal: "662.40",
     anchored: false,
+    // suffix shown after "/mo" on the big price (e.g. seat base for Team)
+    priceSuffix: "",
+    // MONTHLY view
+    monthlyPrice: "69.99",
+    monthlySub: "billed monthly",
+    // ANNUAL view (savings badge is the hero)
+    annualPrice: "59.50",
+    annualSub: "$714.00 billed yearly",
+    saveBadge: "Save 15% · $125.88/yr",
     valueLine: "Everything you need to keep moving and close on the spot.",
     features: [
       "Unlimited questions to Rex on the job",
@@ -117,10 +127,13 @@ export const PLANS = [
     id: "pro",
     name: "Pro",
     forWho: "The pro running flat-out who wants every edge.",
-    monthly: "119.99",
-    annualMonthly: "96",
-    annualTotal: "1,152",
     anchored: true,
+    priceSuffix: "",
+    monthlyPrice: "119.99",
+    monthlySub: "billed monthly",
+    annualPrice: "96.00",
+    annualSub: "$1,152.00 billed yearly",
+    saveBadge: "Save 20% · $287.88/yr",
     valueLine: "The natural choice — built for the pro doing more jobs a day.",
     features: [
       "Everything in Solo",
@@ -134,12 +147,14 @@ export const PLANS = [
     id: "team",
     name: "Team",
     forWho: "The crew owner who wants every tech certain, the first time.",
-    monthly: "259.99",
-    annualMonthly: "208",
-    annualTotal: "2,496",
-    unit: "base 3 seats",
-    extraSeat: "$89.99/mo per extra seat",
     anchored: false,
+    priceSuffix: " · base 3 seats",
+    monthlyPrice: "259.99",
+    monthlySub: "billed monthly · $89.99/mo per extra seat",
+    annualPrice: "208.00",
+    annualSub:
+      "$2,496.00 billed yearly · $89.99/mo per extra seat ($71.99/mo billed annually)",
+    saveBadge: "Save 20% · $623.88/yr",
     valueLine: "Every tech on the crew gets the certain answer the first time.",
     features: [
       "Everything in Pro, for the whole crew",

@@ -6,7 +6,8 @@ import PhoneMockup from "@/components/PhoneMockup.astro";
 import FinalCTA from "@/components/FinalCTA.astro";
 import Icon from "@/components/Icon.astro";
 import Button from "@/components/Button.astro";
-import { SITE, PLANS, TRIAL } from "@/data/site";
+import PricingCards from "@/components/PricingCards.astro";
+import { TRIAL } from "@/data/site";
 
 const problems = [
   {
@@ -276,31 +277,8 @@ const icps = [
       </p>
     </div>
 
-    <div class="mt-12 grid items-stretch gap-6 md:grid-cols-3">
-      {
-        PLANS.map((plan) => (
-          <div
-            class:list={[
-              "relative flex flex-col rounded-[var(--radius-card)] border bg-white p-7 shadow-[var(--shadow-card)]",
-              plan.anchored ? "border-blue ring-2 ring-blue/30" : "border-navy/10",
-            ]}
-          >
-            {plan.anchored && (
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-blue px-4 py-1 text-xs font-bold uppercase tracking-wide text-white">
-                Most pros choose this
-              </span>
-            )}
-            <h3 class="text-xl">{plan.name}</h3>
-            <p class="mt-1 text-sm text-body">{plan.forWho}</p>
-            <p class="mt-5 text-navy">
-              <span class="text-4xl font-extrabold tracking-tight">${plan.annualMonthly}</span>
-              <span class="text-body">/mo{"unit" in plan ? ` · ${plan.unit}` : ""}</span>
-            </p>
-            <p class="mt-1 text-xs text-body/70">billed annually · or ${plan.monthly}/mo monthly</p>
-            <p class="mt-4 text-sm font-semibold text-navy">{plan.valueLine}</p>
-          </div>
-        ))
-      }
+    <div class="mt-12">
+      <PricingCards defaultBilling="annual" />
     </div>
     <div class="mt-10 text-center">
       <Button href="/pricing" variant="primary" size="lg">See everything that's included →</Button>
